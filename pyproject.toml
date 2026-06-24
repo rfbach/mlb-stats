@@ -1,0 +1,20 @@
+[project]
+name = "mlb-stats"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "rfbach",email = "fbach.robert@gmail.com"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "mlb-statsapi (>=1.9.0,<2.0.0)",
+    "boto3 (>=1.28.0)",
+    "python-dotenv (>=1.0.0)"
+]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
