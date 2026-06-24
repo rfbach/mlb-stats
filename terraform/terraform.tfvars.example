@@ -1,0 +1,19 @@
+# AWS Configuration
+aws_region  = "us-east-1"
+environment = "dev"
+
+# Lambda Configuration
+lambda_function_name = "cubs-strikeout-alerts"
+lambda_timeout       = 60
+lambda_memory_size   = 256
+python_runtime       = "python3.10"
+
+# EventBridge Configuration
+eventbridge_rule_name = "cubs-alert-frequent"
+
+# DynamoDB Configuration
+dynamodb_table_name = "cubs-alerts"
+
+# SES Configuration (required - update with your verified emails)
+ses_sender_email    = "your-verified-sender@example.com"
+ses_recipient_email = "alert-recipient@example.com"

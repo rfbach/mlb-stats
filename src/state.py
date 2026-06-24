@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 from .config import DYNAMODB_TABLE_NAME, AWS_REGION
 
 
-def get_dynamodb_client():
-    """Get DynamoDB client."""
-    return boto3.client("dynamodb", region_name=AWS_REGION)
+def get_dynamodb_resource() -> Any:
+    """Get DynamoDB resource."""
+    return boto3.resource("dynamodb", region_name=AWS_REGION)
 
 
 def create_alert_state_table() -> bool:
@@ -18,7 +18,7 @@ def create_alert_state_table() -> bool:
     Returns:
         True if table created or already exists, False on error.
     """
-    dynamodb = get_dynamodb_client()
+    dynamodb = get_dynamodb_resource()
     
     try:
         table = dynamodb.create_table(
@@ -59,7 +59,7 @@ def has_alerted_for_inning(game_id: int, inning: int) -> bool:
         True if alert was already sent, False otherwise.
     """
     try:
-        dynamodb = get_dynamodb_client()
+        dynamodb = get_dynamodb_resource()
         table = dynamodb.Table(DYNAMODB_TABLE_NAME)
         
         response = table.get_item(
@@ -88,7 +88,7 @@ def record_alert(game_id: int, inning: int) -> bool:
         True if recorded successfully, False otherwise.
     """
     try:
-        dynamodb = get_dynamodb_client()
+        dynamodb = get_dynamodb_resource()
         table = dynamodb.Table(DYNAMODB_TABLE_NAME)
         
         # Set TTL to 7 days from now to auto-delete old records
@@ -122,7 +122,7 @@ def clear_game_alerts(game_id: int) -> bool:
         True if cleared successfully, False otherwise.
     """
     try:
-        dynamodb = get_dynamodb_client()
+        dynamodb = get_dynamodb_resource()
         table = dynamodb.Table(DYNAMODB_TABLE_NAME)
         
         # Query all items for this game
@@ -156,7 +156,7 @@ def get_last_game_state() -> Optional[Dict[str, Any]]:
         Dictionary with game state or None if not found.
     """
     try:
-        dynamodb = get_dynamodb_client()
+        dynamodb = get_dynamodb_resource()
         table = dynamodb.Table(DYNAMODB_TABLE_NAME)
         
         response = table.get_item(
@@ -189,7 +189,7 @@ def set_game_state(has_live_games: bool, all_final: bool, live_game_ids: list) -
         True if recorded successfully, False otherwise.
     """
     try:
-        dynamodb = get_dynamodb_client()
+        dynamodb = get_dynamodb_resource()
         table = dynamodb.Table(DYNAMODB_TABLE_NAME)
         
         if live_game_ids is None:

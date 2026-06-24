@@ -73,6 +73,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         # Get today's Cubs home games
         games = get_cubs_home_games_by_day()
+        # games = get_cubs_home_games_by_day('2026-06-15')  # For testing with a specific date
         
         # Get previous game state to check for games spanning midnight
         last_state = get_last_game_state()
@@ -169,8 +170,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 # Check strikeouts by inning and send alerts if needed
                 for inning, strikeout_count in strikeouts_by_inning.items():
                     
-                    if strikeout_count > 0:
-                        print(f"Strikeouts in inning {inning}: {strikeout_count}")
+                    print(f"Strikeouts in inning {inning}: {strikeout_count}")
                     
                     # If 3 strikeouts and we haven't alerted yet, send alert
                     if strikeout_count >= STRIKEOUTS_PER_INNING:

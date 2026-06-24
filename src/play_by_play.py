@@ -1,5 +1,5 @@
 """Play-by-play parsing module to detect strikeouts."""
-from typing import Optional, Dict, Any, Tuple
+from typing import Optional, Dict, Any
 import statsapi
 from .config import STRIKEOUTS_PER_INNING
 
